@@ -1,4 +1,4 @@
-#Blackjack example
+# Blackjack example
 
 This is the Blackjack code after the refactoring of the getBlackjackValue() method out of the Rank class.
 
