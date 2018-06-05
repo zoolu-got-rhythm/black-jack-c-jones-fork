@@ -12,19 +12,19 @@ public class RankToValueMapperTest {
 
     @Test
     public void testGetBlackjackValueOfACE() throws Exception {
-        assertEquals(11,RankToValueMapper.getBlackjackValue(Rank.ACE));
+        assertEquals(11,EnumToValueMapper.getBlackjackValue(Rank.ACE));
 
     }
 
     @Test
     public void testGetBlackjackValueOfQUEEN() throws Exception {
-        assertEquals(10,RankToValueMapper.getBlackjackValue(Rank.QUEEN));
+        assertEquals(10,EnumToValueMapper.getBlackjackValue(Rank.QUEEN));
 
     }
 
     @Test
     public void testGetBlackjackValueOfFIVE() throws Exception {
-        assertEquals(5,RankToValueMapper.getBlackjackValue(Rank.FIVE));
+        assertEquals(5,EnumToValueMapper.getBlackjackValue(Rank.FIVE));
 
     }
 }

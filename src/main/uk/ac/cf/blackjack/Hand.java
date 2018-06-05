@@ -25,7 +25,7 @@ public class Hand {
 
     public void addCard(PlayingCard aCard) {
         cards.add(aCard);
-        total += RankToValueMapper.getBlackjackValue(aCard.rank);
+        total += EnumToValueMapper.getBlackjackValue(aCard.rank);
         if (aCard.rank == Rank.ACE) {
             aces++;
         }
@@ -66,4 +66,9 @@ public class Hand {
     public String toString() {
         return cards + " = " + getBestValue();
     }
+
+    public Set<PlayingCard> getCards() {
+        return cards;
+    }
+
 }

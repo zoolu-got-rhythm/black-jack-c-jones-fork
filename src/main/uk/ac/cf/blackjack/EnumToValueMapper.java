@@ -5,7 +5,7 @@ import uk.ac.cf.playingcards.Rank;
 /**
  * Created by Carl on 19/02/2016.
  */
-public class RankToValueMapper {
+public class EnumToValueMapper {
 
     public static int getBlackjackValue(Rank aRank) {
         switch (aRank) {
@@ -15,5 +15,9 @@ public class RankToValueMapper {
             default:
                 return aRank.ordinal() + 1;
         }
+    }
+
+    public static int getHandIntValueFromHandValueEnum(HandValue handValue) {
+            return handValue.ordinal();
     }
 }

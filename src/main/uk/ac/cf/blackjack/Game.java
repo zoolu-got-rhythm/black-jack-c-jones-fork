@@ -4,8 +4,11 @@ import uk.ac.cf.playingcards.Deck;
 import uk.ac.cf.playingcards.PlayingCard;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
-public class Game {
+// note: could use aspect oriented programming/aop here to trigger observer.update after every method call
+public class Game extends Observable{
 
     private ArrayList<Player> players;
     private ArrayList<Player> playersInGame;
@@ -15,7 +18,10 @@ public class Game {
     private boolean isGameOver;
     private Deck theDeck;
 
+
+
     public Game (String playerNameA, String playerNameB, String... otherPlayerNames){
+        super();
         players = new ArrayList<Player>();
         players.add(new Player(playerNameA));
         players.add(new Player(playerNameB));
@@ -46,10 +52,20 @@ public class Game {
                 aPlayer.getHand().addCard(aCard);
             }
         }
+
+        this.notifyView();
     }
 
     public Player getCurrentPlayer(){
         return currentPlayer;
+    }
+
+    public Player getPlayerByName(String playerName) throws Exception { // change to no player found custom exception
+        for(Player player : this.players){
+            if(player.getName().equals(playerName))
+                return player;
+        }
+        throw new Exception("no player with that name found");
     }
 
     public void nextPlayer() throws NoPlayersInGameException{
@@ -82,10 +98,10 @@ public class Game {
             playersInGame.remove(aPlayer);
             playersInDeal.remove(aPlayer);
         }
+        this.notifyView();
     }
 
     public boolean isGameOver(){
-
         return ((playersInGame.size()==1) || (playersInDeal.isEmpty()));
     }
 
@@ -117,6 +133,18 @@ public class Game {
         this.winner=theWinner;
         return theWinner;
 
+    }
+
+    private void notifyView(){
+        super.setChanged();
+        super.notifyObservers(this);
+        super.clearChanged();
+    }
+
+
+    @Override
+    public void addObserver(Observer o){ // can denote this method i think and just directly/externally call super method
+            super.addObserver(o);
     }
 
     @Override
