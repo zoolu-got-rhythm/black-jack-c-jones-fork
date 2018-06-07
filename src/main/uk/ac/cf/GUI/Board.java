@@ -5,102 +5,82 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 public class Board extends JPanel {
 
-    private static final int DIM_WIDTH = 140;
-    private static final int DIM_HEIGHT = 220;
-    private static final int SQ_SIZE = 80;
-
-    boolean black = true;
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        String normal = "abcdefghijklmnopqrstuvwxyz_,;.?!/\\'";
-        String split  = "ɐqɔpǝɟbɥıظʞןɯuodbɹsʇnʌʍxʎz‾'؛˙¿¡/\\,";
-
-        normal += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        split  += "∀qϽᗡƎℲƃHIſʞ˥WNOԀὉᴚS⊥∩ΛMXʎZ";
-
-        normal += "0123456789";
-        split  += "0ƖᄅƐㄣϛ9ㄥ86";
-
-//        char[] c = {'\u2764'};
-//        RTextLine text = new RTextLine();
-        String upsidedownSymbol = "";
-        upsidedownSymbol += split.charAt(normal.indexOf('A'));
-
-
-
-        g.setColor(Color.GRAY);
-
-        g.fillRoundRect(2, 2, 80, 120, 10, 10);
-
-        g.setColor(Color.WHITE);
-//                    g.fillRect(50, 50, SQ_SIZE, SQ_SIZE);
-        g.fillRoundRect(3, 3, 80, 120, 10, 10);
-
-
-        g.setColor(Color.RED);
-        g.drawString("7", 10, 25);
-        g.drawString("\u2764", 10, 38);
-
-//        System.out.println(upsidedownSymbol);
-//        g.drawString(upsidedownSymbol, 60, 20);
-//                    g.drawChars(c, 50, 50, 50, 50);
-
-        Font f = new Font("Dialog", Font.ROMAN_BASELINE, 45);
-        g.setFont(f);
-
-        g.drawString("\u2764", 25, 78);
-
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File("/Users/slime/Documents/blackJackCarlJonesFork/src/main/uk/ac/cf/GUI/Ace.jpg"));
-        } catch (IOException e) {
-        }
-
-        g.drawImage(img, 120, 80, 100, 130, null);
-        g.drawImage(img, 120 + 100, 80, 100, 130, null);
-        g.drawImage(img, 120 + (100 * 2), 80, 100, 130, null);
-
-        g.drawImage(img, 120, 200, 100, 130, null);
-        g.drawImage(img, 120 + 100, 200, 100, 130, null);
-        g.drawImage(img, 120 + (100 * 2), 200, 100, 130, null);
-
     }
 
     public static void createAndShowGui() {
+
+
+//        frame.setBackground(Color.green);
         JFrame frame = new JFrame();
 
-        frame.setBackground(Color.green);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationByPlatform(true);
         frame.pack();
         frame.setVisible(true);
+        frame.setSize(500, 500);
 
-        Button stay = new Button("stay");
-        Button card = new Button("card");
-        card.setSize(50, 50);
-        stay.setSize(50, 50);
-        JPanel p = new JPanel();
-        p.setSize(100, 100);
-        p.setBackground(Color.RED);
-        p.add(stay);
-        p.add(card);
-        frame.add(p);
-        Board b = new Board();
-        b.setSize(400, 400);
-        b.setBackground(Color.ORANGE);
-        frame.add(b);
 
-//        frame.add(b);
+        JPanel container = new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g) {
 
+            }
+
+        };
+
+//        p.setSize(50,50);
+//        p.setBackground(Color.green);
+//        p.setLayout(new BoxLayout(p, BoxLayout.PAGE_AXIS));
+//        container.setSize(600, 600);
+//        p.setOpaque(false);
+
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+        container.setBackground(Color.black);
+        frame.setContentPane(container);
+
+
+
+        Insets insets = container.getInsets();
+
+//        Container
+
+
+        JPanel p2 = new JPanel();
+        p2.setBackground(Color.ORANGE);
+        p2.setBounds(insets.left + 50, insets.top + 50, 100, 100);
+
+        container.add(p2);
+
+
+        JPanel p3 = new JPanel();
+        p3.setBackground(Color.RED);
+        p3.setBounds(insets.left + 150, insets.top + 150, 200, 40);
+        p3.add(new Button("stay"));
+        p3.add(new Button("card"));
+
+        container.add(p3);
+
+
+//        JButton b = new JButton("dsaf");
+//        p2.add(b);
+//
+//        JPanel p3 = new JPanel();
+//        p3.setBackground(Color.RED);
+//        p3.setSize(100, 100);
+
+
+
+
+//        frame.getContentPane().add(p2);
+//        frame.getContentPane().add(p3);
     }
 
     public Dimension getPreferredSize() {
