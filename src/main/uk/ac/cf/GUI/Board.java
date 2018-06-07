@@ -42,27 +42,32 @@ public class Board extends JPanel {
 //        container.setSize(600, 600);
 //        p.setOpaque(false);
 
-        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+//        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
         container.setBackground(Color.black);
+        container.setLayout(new FlowLayout(FlowLayout.LEFT));
+        container.setComponentOrientation(
+                ComponentOrientation.LEFT_TO_RIGHT);
         frame.setContentPane(container);
 
-
+        // get rid of padding
 
         Insets insets = container.getInsets();
 
 //        Container
 
-
         JPanel p2 = new JPanel();
+        Dimension p2D = p2.getPreferredSize();
         p2.setBackground(Color.ORANGE);
-        p2.setBounds(insets.left + 50, insets.top + 50, 100, 100);
+        p2.setPreferredSize(new Dimension(frame.getWidth() / 4, frame.getHeight()));
+//        p2.setSize(p2D.width, 40);
+//        p2.setBounds(insets.left + 50, insets.top + 50, 100, 100);
 
         container.add(p2);
 
 
         JPanel p3 = new JPanel();
         p3.setBackground(Color.RED);
-        p3.setBounds(insets.left + 150, insets.top + 150, 200, 40);
+//        p3.setBounds(insets.left + 150, insets.top + 150, 200, 40);
         p3.add(new Button("stay"));
         p3.add(new Button("card"));
 
