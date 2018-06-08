@@ -58,7 +58,7 @@ public class Board extends JPanel {
         JPanel p2 = new JPanel();
         Dimension p2D = p2.getPreferredSize();
         p2.setBackground(Color.ORANGE);
-        p2.setPreferredSize(new Dimension(frame.getWidth() / 4, frame.getHeight()));
+        p2.setPreferredSize(new Dimension((frame.getWidth() / 4) * 3, frame.getHeight()));
 //        p2.setSize(p2D.width, 40);
 //        p2.setBounds(insets.left + 50, insets.top + 50, 100, 100);
 

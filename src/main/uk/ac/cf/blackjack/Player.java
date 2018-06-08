@@ -8,12 +8,15 @@ public class Player {
     private String name;
     private Hand hand;
     private boolean stillInTheGame;
+    private Chips chips;
 
-    public Player (String name){
+    public Player (String name, int balance){
         this.name = name;
         hand=new Hand();
         stillInTheGame =true;
+        this.chips = new Chips(balance);
     }
+
 
     public Hand getHand(){
         return hand;
@@ -40,5 +43,9 @@ public class Player {
                 "name='" + name + '\'' +
                 ", hand=" + hand +
                 '}';
+    }
+
+    public Chips getChips() {
+        return chips;
     }
 }

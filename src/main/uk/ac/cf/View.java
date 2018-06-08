@@ -17,11 +17,16 @@ public class View implements Observer {
         // view observes model for changes and polls it's state to decide what questions to ask the user
         System.out.println("turn: " + model.getCurrentPlayer().getName());
         System.out.println("hand value: " + model.getCurrentPlayer().getHand().getBestValue());
+        try {
+            System.out.println("your chips value: " +
+                    model.getPlayerByName("player").getChips().getCurrentBalance());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-
+        // this is ran if someone goes bust
         if(model.isGameOver()) {
-            System.out.println("winner: " + model.getWinner());
-            System.exit(0);
+            return;
         }
 
         if(!model.getCurrentPlayer().getName().equals("house")) {
@@ -42,7 +47,15 @@ public class View implements Observer {
     // if there is no bust and it comes down to highest deck value of 2 players, this method is called by controller
     public void printEndGameResult(Game model){
         System.out.println("winner: " + model.getWinner());
-        System.exit(0);
+//        System.out.println(model.getPlacedBets());
+        try {
+            System.out.println("your chips value: " +
+                    model.getPlayerByName("player").getChips().getCurrentBalance());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        System.exit(0);
+        return;
     }
 
     public void addCustomListener(CustomListener customListener){

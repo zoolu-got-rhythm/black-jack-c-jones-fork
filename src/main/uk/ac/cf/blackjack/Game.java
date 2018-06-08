@@ -4,6 +4,7 @@ import uk.ac.cf.playingcards.Deck;
 import uk.ac.cf.playingcards.PlayingCard;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -17,26 +18,36 @@ public class Game extends Observable{
     private Player winner;
     private boolean isGameOver;
     private Deck theDeck;
+    private HashMap<Player, Integer> placedBets;
 
 
 
-    public Game (String playerNameA, String playerNameB, String... otherPlayerNames){
+    public Game (Player playerNameA, Player playerNameB, Player... otherPlayerNames){
         super();
         players = new ArrayList<Player>();
-        players.add(new Player(playerNameA));
-        players.add(new Player(playerNameB));
+        players.add(playerNameA);
+        players.add(playerNameB);
         if (otherPlayerNames.length>0){
-            for (String other : otherPlayerNames){
-                players.add(new Player(other));
+            for (Player other : otherPlayerNames){
+                players.add(other);
             }
         }
         playersInGame = new ArrayList<Player>();
         playersInGame.addAll(players);
         playersInDeal = new ArrayList<Player>();
         playersInDeal.addAll(players);
-        isGameOver=false;
+//        isGameOver=false;
         theDeck=new Deck();
         currentPlayer = players.get(0);
+        placedBets = new HashMap<>();
+    }
+
+
+
+    public void placeChipsToEnterGame(Player player, int chipsAmount) throws Exception {
+        if(chipsAmount < 3)
+            throw new Exception("minimum buy in is 3 chips to play"); // make custom exception instead
+        placedBets.put(player, chipsAmount);
     }
 
     public void dealCards(int numberOfCardsInInitialShuffle, boolean shuffleFirst){
@@ -55,6 +66,8 @@ public class Game extends Observable{
 
         this.notifyView();
     }
+
+    // check blackjack
 
     public Player getCurrentPlayer(){
         return currentPlayer;
@@ -97,6 +110,8 @@ public class Game extends Observable{
         if (aPlayer.getHand().getBestValue()==HandValue.BUST){
             playersInGame.remove(aPlayer);
             playersInDeal.remove(aPlayer);
+            int chipsValue = placedBets.get(aPlayer);
+            aPlayer.getChips().removeChips(chipsValue);
         }
         this.notifyView();
     }
@@ -117,22 +132,53 @@ public class Game extends Observable{
         Player theWinner;
 
         //if everyone else has gone bust, the winner is the last player standing
-
         if (playersInGame.size()==1){
             theWinner=playersInGame.get(0);
+            int chipsValue = placedBets.get(theWinner);
+            theWinner.getChips().addChips(chipsValue);
+            this.winner = theWinner;
+            return theWinner;
+        }
+
+        //draw logic: return null if draw and don't remove any chips
+        Boolean isDraw = false;
+        for(int i = 1; i < playersInGame.size(); i++){
+            if(playersInGame.get(i - 1).getHand().getBestValue().ordinal() ==
+                    playersInGame.get(i).getHand().getBestValue().ordinal()){
+                isDraw = true;
+            }else{
+                isDraw = false;
+                break;
+            }
+        }
+
+        if(isDraw){
+            theWinner = null;
+            this.winner = null;
+            return theWinner;
         }
 
         //Otherwise, it is the player with the best hand-value
-
         theWinner = playersInGame.get(0);
-        for (Player aPlayer : playersInGame){
-            if (aPlayer.getHand().getBestValue().ordinal() > theWinner.getHand().getBestValue().ordinal()){
+        for (Player aPlayer : playersInGame) {
+            if (aPlayer.getHand().getBestValue().ordinal() > theWinner.getHand().getBestValue().ordinal()) {
                 theWinner = aPlayer;
             }
         }
+
+        // give chips to winner, remove from loosers
+        for(int j = 0; j < playersInGame.size(); j++){
+            if(playersInGame.get(j) == theWinner){
+                int chipsValue = placedBets.get(theWinner);
+                playersInGame.get(j).getChips().addChips(chipsValue);
+            }else{
+                int chipsValue = placedBets.get(playersInGame.get(j));
+                playersInGame.get(j).getChips().removeChips(chipsValue);
+            }
+        }
+
         this.winner=theWinner;
         return theWinner;
-
     }
 
     private void notifyView(){
@@ -153,5 +199,9 @@ public class Game extends Observable{
                 "players=" + players +
                 ", winner=" + winner +
                 '}';
+    }
+
+    public HashMap<Player, Integer> getPlacedBets() {
+        return placedBets;
     }
 }
