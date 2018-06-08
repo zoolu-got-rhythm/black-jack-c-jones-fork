@@ -8,13 +8,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-public class Board extends JPanel {
-
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-    }
+public class Board{
 
     public static void createAndShowGui() {
 
@@ -64,109 +58,196 @@ public class Board extends JPanel {
 
 //        Container
 
-        JPanel p2 = new JPanel();
-        BoxLayout boxLayout = new BoxLayout(p2, BoxLayout.Y_AXIS);
-        p2.setBackground(Color.ORANGE);
-//        p2.setBorder(new EmptyBorder(0, 0, 0, 0));
-        p2.setPreferredSize(new Dimension((frame.getWidth() / 4) * 3, frame.getHeight()));
-//        p2.setSize(p2D.width, 40);
-//        p2.setBounds(insets.left + 50, insets.top + 50, 100, 100);
-        Dimension p2D = p2.getPreferredSize();
+        JPanel cardsTable = new JPanel();
+//        BoxLayout boxLayout = new BoxLayout(cardsTable, BoxLayout.Y_AXIS);
+        cardsTable.setBackground(Color.ORANGE);
+//        cardsTable.setBorder(new EmptyBorder(0, 0, 0, 0));
+        cardsTable.setPreferredSize(new Dimension((frame.getWidth() / 4) * 3, frame.getHeight()));
+//        cardsTable.setSize(cardsTableD.width, 40);
+//        cardsTable.setBounds(insets.left + 50, insets.top + 50, 100, 100);
+        Dimension cardsTableD = cardsTable.getPreferredSize();
 
-        JPanel p4 = new JPanel();
-        p4.setPreferredSize(new Dimension((frame.getWidth() / 4) * 3, 200));
-        p4.setBackground(Color.BLUE);
-
-        JLabel textComputer = new JLabel("computer");
-        p4.add(textComputer);
-
-        p2.add(p4);
-
-        JPanel p5 = new JPanel(){
+        JPanel computerCards = new JPanel(){
             @Override
             protected void paintComponent(Graphics g) {
                 int width = getWidth();
                 int height = getHeight();
 
+//                C c = new Color(102, 255, 102);
+                g.fillRect(0, 0, width, height);
+
+                // draw table texture
+                for(int j = 0; j < 50; j++){
+                    for(int k = 0; k < 50; k++){
+                        Color c;
+                        if(j % 2 == 0){
+                            c = k % 2 == 0 ? new Color(102, 255, 102) : new Color(0, 204, 102);
+                        }else{
+                            c = k % 2 == 0 ? new Color(0, 204, 102) : new Color(102, 255, 102);
+                        }
+                        g.setColor(c);
+                        g.fillRect(j * (width / 50), k * (height / 50), width / 50, height / 50);
+                    }
+                }
+
+                // draw cards
                 for(int i = 0; i < 4; i ++){
-//                    if(i % 2 == 0){
-//                        g.setColor(Color.MAGENTA);
-//                    }else{
-//                        g.setColor(Color.BLACK);
-//                    }
                     g.setColor(Color.WHITE);
-//                    g.fillRect(i * (getWidth() / 10), 0, width / 10, height);
-                    g.fillRoundRect(i * (getWidth() / 5) + 20, 30, width / 5 - 20, (width / 5) + 20, 5, 5);
+                    g.fillRoundRect(i * (width / 5) + 20, 30, width / 5 - 10, (width / 5) + 20, 5, 5);
                 }
 
             }
         };
 
-        p5.setPreferredSize(new Dimension((frame.getWidth() / 4) * 3, 200));
-        p5.setBackground(Color.CYAN);
+
+        computerCards.setPreferredSize(new Dimension((frame.getWidth() / 4) * 3, 200));
+        computerCards.setBackground(Color.BLUE);
+
+        JLabel textComputer = new JLabel("computer");
+        computerCards.add(textComputer);
+
+        cardsTable.add(computerCards);
+
+        JPanel playerCards = new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g) {
+                int width = getWidth();
+                int height = getHeight();
+
+//                C c = new Color(102, 255, 102);
+                g.fillRect(0, 0, width, height);
+
+                // draw table texture
+                for(int j = 0; j < 50; j++){
+                    for(int k = 0; k < 50; k++){
+                        Color c;
+                        if(j % 2 == 0){
+                            c = k % 2 == 0 ? new Color(102, 255, 102) : new Color(0, 204, 102);
+                        }else{
+                            c = k % 2 == 0 ? new Color(0, 204, 102) : new Color(102, 255, 102);
+                        }
+                        g.setColor(c);
+                        g.fillRect(j * (width / 50), k * (height / 50), width / 50, height / 50);
+                    }
+                }
+
+                // draw cards
+                for(int i = 0; i < 4; i ++){
+                    g.setColor(Color.WHITE);
+                    g.fillRoundRect(i * (width / 5) + 20, 30, width / 5 - 10, (width / 5) + 20, 5, 5);
+                }
+
+            }
+        };
+
+        playerCards.setPreferredSize(new Dimension((frame.getWidth() / 4) * 3, 200));
+//        playerCards.setBackground(Color.GREEN);
         JLabel text = new JLabel("player");
-        p5.add(text);
-        p2.add(p5);
+        playerCards.add(text);
+        cardsTable.add(playerCards);
 
 
-        JPanel p6 = new JPanel();
-        p6.setPreferredSize(new Dimension((frame.getWidth() / 4) * 3, 50));
-        p6.setBackground(Color.CYAN);
+        JPanel blackjackNavigation = new JPanel();
+        blackjackNavigation.setPreferredSize(new Dimension((frame.getWidth() / 4) * 3, 50));
+        blackjackNavigation.setBackground(Color.CYAN);
 
         FlowLayout fl2 = new FlowLayout(FlowLayout.CENTER);
-        p6.setLayout(fl2);
+        blackjackNavigation.setLayout(fl2);
 
         JButton stay = new JButton("stay");
-        p6.add(stay);
+        blackjackNavigation.add(stay);
 
         JButton card = new JButton("card");
-        p6.add(card);
+        blackjackNavigation.add(card);
 
 
-        p2.add(p6);
+        cardsTable.add(blackjackNavigation);
 
 
-        container.add(p2);
-
-
-
+        container.add(cardsTable);
 
 
 
-        JPanel p3 = new JPanel();
-        p3.setBackground(Color.GREEN);
-//        p3.setBorder(new EmptyBorder(0, 0, 0, 0));
 
-        p3.setPreferredSize(new Dimension((frame.getWidth() / 4), frame.getHeight()));
 
-        container.add(p3);
 
-//        JPanel p3 = new JPanel();
-//        p3.setBackground(Color.RED);
-////        p3.setBounds(insets.left + 150, insets.top + 150, 200, 40);
-//        p3.add(new Button("stay"));
-//        p3.add(new Button("card"));
+        JPanel chipsContainer = new JPanel();
+        chipsContainer.setBorder(BorderFactory.createLineBorder(Color.red));
 
-//        container.add(p3);
+
+
+        BoxLayout chipsLayout = new BoxLayout(chipsContainer, BoxLayout.Y_AXIS);
+        chipsContainer.setLayout(chipsLayout);
+
+        JLabel chipsLabel = new JLabel("chips");
+
+
+        chipsContainer.setBackground(Color.GREEN);
+//        chipsContainer.setBorder(new EmptyBorder(0, 0, 0, 0));
+
+        chipsContainer.setPreferredSize(new Dimension((frame.getWidth() / 4), frame.getHeight()));
+
+
+        JPanel chipsStack = new JPanel(){
+
+        };
+
+
+        chipsStack.setBackground(Color.WHITE);
+
+//        chipsStack.setPreferredSize(new Dimension(frame.getWidth() / 3, 100));
+//        chipsStack.setMinimumSize(new Dimension(frame.getWidth() / 3, frame.getHeight() / 2));
+//        chipsStack.setMaximumSize(new Dimension(frame.getWidth() / 3, frame.getHeight() / 2));
+
+        chipsContainer.add(chipsStack, Component.LEFT_ALIGNMENT);
+
+
+        JPanel placeBet = new JPanel(){
+
+        };
+
+
+        placeBet.setBackground(Color.BLACK);
+
+//        chipsStack.setPreferredSize(new Dimension(frame.getWidth() / 3, frame.getHeight() / 2));
+//        chipsStack.setMaximumSize(new Dimension(frame.getWidth() / 4, frame.getHeight() / 2));
+
+        chipsContainer.add(placeBet, Component.LEFT_ALIGNMENT);
+
+
+
+
+
+
+
+        container.add(chipsContainer);
+
+//        JPanel chipsContainer = new JPanel();
+//        chipsContainer.setBackground(Color.RED);
+////        chipsContainer.setBounds(insets.left + 150, insets.top + 150, 200, 40);
+//        chipsContainer.add(new Button("stay"));
+//        chipsContainer.add(new Button("card"));
+
+//        container.add(chipsContainer);
 
 
 //        JButton b = new JButton("dsaf");
-//        p2.add(b);
+//        cardsTable.add(b);
 //
-//        JPanel p3 = new JPanel();
-//        p3.setBackground(Color.RED);
-//        p3.setSize(100, 100);
+//        JPanel chipsContainer = new JPanel();
+//        chipsContainer.setBackground(Color.RED);
+//        chipsContainer.setSize(100, 100);
 
 
 
 
 //        frame.getContentPane().add(p2);
-//        frame.getContentPane().add(p3);
+//        frame.getContentPane().add(chipsContainer);
     }
 
-    public Dimension getPreferredSize() {
-        return new Dimension(500, 500);
-    }
+//    public Dimension getPreferredSize() {
+//        return new Dimension(500, 500);
+//    }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
