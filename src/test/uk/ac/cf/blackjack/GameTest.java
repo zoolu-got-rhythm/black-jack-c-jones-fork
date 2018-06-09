@@ -1,6 +1,9 @@
 package uk.ac.cf.blackjack;
 
 import org.junit.Test;
+import uk.ac.cf.playingcards.PlayingCard;
+import uk.ac.cf.playingcards.Rank;
+import uk.ac.cf.playingcards.Suit;
 
 import static org.junit.Assert.*;
 
@@ -8,11 +11,41 @@ import static org.junit.Assert.*;
  * Created by Carl on 16/02/2016.
  */
 public class GameTest {
+    private Player Victoria = new Player("Victoria", 10);
+    private Player David = new Player("David", 10);
 
 
     @Test
+    public void testDraw() throws Exception {
+        Player a = new Player("a", 10);
+        Player b = new Player("b", 10);
+        Game aGame = new Game(a, b);
+        a.getHand().addCard(new PlayingCard(Suit.CLUBS, Rank.FIVE));
+        b.getHand().addCard(new PlayingCard(Suit.SPADES, Rank.FIVE));
+        assertNull(aGame.getWinner());
+
+        a.getHand().addCard(new PlayingCard(Suit.CLUBS, Rank.TWO));
+        a.getHand().addCard(new PlayingCard(Suit.CLUBS, Rank.THREE));
+
+        b.getHand().addCard(new PlayingCard(Suit.SPADES, Rank.FIVE));
+        assertNull(aGame.getWinner());
+    }
+
+    @Test
+    public void testPlayerWins() throws Exception{
+        Player a = new Player("a", 10);
+        Player b = new Player("b", 10);
+        Game aGame = new Game(a, b);
+        a.getHand().addCard(new PlayingCard(Suit.CLUBS, Rank.THREE));
+        b.getHand().addCard(new PlayingCard(Suit.SPADES, Rank.FIVE));
+        aGame.placeChipsToEnterGame(a, 10);
+        aGame.placeChipsToEnterGame(b, 10);
+        assertEquals(b, aGame.getWinner());
+    }
+
+    @Test
     public void testVictoriaGoesBust() throws Exception{
-        Game aGame=new Game("Victoria","David");
+        Game aGame=new Game(Victoria,David);
 
 
         aGame.dealCards(2,false);
@@ -146,7 +179,7 @@ public class GameTest {
 
     @Test
     public void testBothPlayersStick() throws Exception{
-        Game aGame=new Game("Victoria","David");
+        Game aGame=new Game(this.Victoria,this.David);
 
 
         aGame.dealCards(2,false);

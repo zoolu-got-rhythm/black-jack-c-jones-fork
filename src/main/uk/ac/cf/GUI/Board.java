@@ -33,7 +33,7 @@ public class Board{
 
 
 
-        container.setBorder(new EmptyBorder(0, 0, 0, 0));
+//        container.setBorder(new EmptyBorder(0, 0, 0, 0));
 
 //        p.setSize(50,50);
 //        p.setBackground(Color.green);
@@ -59,10 +59,17 @@ public class Board{
 //        Container
 
         JPanel cardsTable = new JPanel();
+
+        FlowLayout flForCardsTable = new FlowLayout(FlowLayout.LEFT);
+        flForCardsTable.setHgap(0);
+        flForCardsTable.setVgap(0);
+        cardsTable.setLayout(flForCardsTable);
 //        BoxLayout boxLayout = new BoxLayout(cardsTable, BoxLayout.Y_AXIS);
         cardsTable.setBackground(Color.ORANGE);
 //        cardsTable.setBorder(new EmptyBorder(0, 0, 0, 0));
         cardsTable.setPreferredSize(new Dimension((frame.getWidth() / 4) * 3, frame.getHeight()));
+//        cardsTable.setBorder(new EmptyBorder(0, 0, 0, 0));
+
 //        cardsTable.setSize(cardsTableD.width, 40);
 //        cardsTable.setBounds(insets.left + 50, insets.top + 50, 100, 100);
         Dimension cardsTableD = cardsTable.getPreferredSize();
@@ -92,6 +99,10 @@ public class Board{
 
                 // draw cards
                 for(int i = 0; i < 4; i ++){
+
+                    g.setColor(Color.GRAY);
+                    g.fillRoundRect(i * (width / 5) + 20 - 2, 30 - 2, width / 5 - 10, (width / 5) + 20, 5, 5);
+
                     g.setColor(Color.WHITE);
                     g.fillRoundRect(i * (width / 5) + 20, 30, width / 5 - 10, (width / 5) + 20, 5, 5);
                 }
@@ -113,29 +124,49 @@ public class Board{
             protected void paintComponent(Graphics g) {
                 int width = getWidth();
                 int height = getHeight();
+//
+//                int width = (frame.getWidth() / 4) * 3;
+//                int height = frame.getHeight();
 
 //                C c = new Color(102, 255, 102);
-                g.fillRect(0, 0, width, height);
 
-                // draw table texture
-                for(int j = 0; j < 50; j++){
-                    for(int k = 0; k < 50; k++){
-                        Color c;
-                        if(j % 2 == 0){
-                            c = k % 2 == 0 ? new Color(102, 255, 102) : new Color(0, 204, 102);
-                        }else{
-                            c = k % 2 == 0 ? new Color(0, 204, 102) : new Color(102, 255, 102);
+//                BufferedImage image;
+                try {
+                    final BufferedImage image = ImageIO.read(new File("/Users/slime/Documents/blackJackCarlJonesFork/src/main/uk/ac/cf/GUI/2_of_clubs.png"));
+
+                    g.fillRect(0, 0, width, height);
+
+                    // draw table texture
+                    for(int j = 0; j < 54; j++){
+                        for(int k = 0; k < 50; k++){
+                            Color c;
+                            if(j % 2 == 0){
+                                c = k % 2 == 0 ? new Color(102, 255, 102) : new Color(0, 204, 102);
+                            }else{
+                                c = k % 2 == 0 ? new Color(0, 204, 102) : new Color(102, 255, 102);
+                            }
+                            g.setColor(c);
+                            g.fillRect(j * (width / 50), k * (height / 50), width / 50, height / 50);
                         }
-                        g.setColor(c);
-                        g.fillRect(j * (width / 50), k * (height / 50), width / 50, height / 50);
                     }
+
+                    // draw cards
+                    for(int i = 0; i < 4; i ++){
+                        g.setColor(Color.GRAY);
+                        g.fillRoundRect(i * (width / 5) + 20 - 2, 30 - 2, width / 5 - 10, (width / 5) + 20, 5, 5);
+
+                        g.setColor(Color.WHITE);
+                        g.fillRoundRect(i * (width / 5) + 20, 30, width / 5 - 10, (width / 5) + 20, 5, 5);
+
+                        g.drawImage(image, i * (width / 5) + 20, 30, width / 5 - 10, (width / 5) + 20, null);
+
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
 
-                // draw cards
-                for(int i = 0; i < 4; i ++){
-                    g.setColor(Color.WHITE);
-                    g.fillRoundRect(i * (width / 5) + 20, 30, width / 5 - 10, (width / 5) + 20, 5, 5);
-                }
+
+
 
             }
         };
@@ -180,6 +211,7 @@ public class Board{
         chipsContainer.setLayout(chipsLayout);
 
         JLabel chipsLabel = new JLabel("chips");
+        chipsContainer.add(chipsLabel);
 
 
         chipsContainer.setBackground(Color.GREEN);
@@ -187,19 +219,49 @@ public class Board{
 
         chipsContainer.setPreferredSize(new Dimension((frame.getWidth() / 4), frame.getHeight()));
 
+//        frame.
+//        frame.
 
         JPanel chipsStack = new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g) {
+                int width = getWidth();
+                int height = getHeight();
+//
+//                int width = (frame.getWidth() / 4) * 3;
+//                int height = frame.getHeight();
+
+//                C c = new Color(102, 255, 102);
+
+//                BufferedImage image;
+                try {
+                    final BufferedImage image = ImageIO.read(new File("/Users/slime/Documents/blackJackCarlJonesFork/src/main/uk/ac/cf/GUI/gold-coin-hi.png"));
+
+                    // draw table texture
+                        for (int i = 30; i > 0; i--) {
+                            g.drawImage(image, 20 + (int) Math.floor(Math.random() * 8), i * 11, 80, 40, null);
+                        }
+
+
+                    // draw cards
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 
         };
 
 
         chipsStack.setBackground(Color.WHITE);
 
-//        chipsStack.setPreferredSize(new Dimension(frame.getWidth() / 3, 100));
-//        chipsStack.setMinimumSize(new Dimension(frame.getWidth() / 3, frame.getHeight() / 2));
-//        chipsStack.setMaximumSize(new Dimension(frame.getWidth() / 3, frame.getHeight() / 2));
+//        System.out.println(frame.getJMenuBar().getHeight());
 
-        chipsContainer.add(chipsStack, Component.LEFT_ALIGNMENT);
+        chipsStack.setPreferredSize(new Dimension(frame.getWidth() / 4, (frame.getHeight() / 4) * 3));
+//        chipsStack.setMinimumSize(new Dimension(frame.getWidth() / 3, frame.getHeight() / 3));
+        chipsStack.setMaximumSize(new Dimension(frame.getWidth() / 4, frame.getHeight() / 3));
+        chipsStack.setAlignmentX(Component.LEFT_ALIGNMENT);
+        chipsContainer.add(chipsStack);
 
 
         JPanel placeBet = new JPanel(){
@@ -212,7 +274,10 @@ public class Board{
 //        chipsStack.setPreferredSize(new Dimension(frame.getWidth() / 3, frame.getHeight() / 2));
 //        chipsStack.setMaximumSize(new Dimension(frame.getWidth() / 4, frame.getHeight() / 2));
 
-        chipsContainer.add(placeBet, Component.LEFT_ALIGNMENT);
+        placeBet.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+
+        chipsContainer.add(placeBet);
 
 
 
