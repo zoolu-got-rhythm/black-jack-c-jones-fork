@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Observer;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -222,7 +223,7 @@ public class Board{
 //        frame.
 //        frame.
 
-        JPanel chipsStack = new JPanel(){
+        JPanel chipsStack = new JPanel () {
             @Override
             protected void paintComponent(Graphics g) {
                 int width = getWidth();
