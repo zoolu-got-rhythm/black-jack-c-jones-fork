@@ -16,12 +16,13 @@ public class BettingView extends JPanel{
         placeBetButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(placeBetButton,
-                        "You shouldn't use a message dialog "
-                                + "(like this)\n"
-                                + "for a question, OK?",
-                        "Inane question",
-                        JOptionPane.YES_NO_OPTION);
+//                JOptionPane.showMessageDialog(placeBetButton,
+//                        "You shouldn't use a message dialog "
+//                                + "(like this)\n"
+//                                + "for a question, OK?",
+//                        "Inane question",
+//                        JOptionPane.YES_NO_OPTION);
+                System.out.println(e.getActionCommand());
             }
         });
     }
