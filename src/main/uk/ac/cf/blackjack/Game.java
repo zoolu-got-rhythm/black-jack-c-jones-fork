@@ -182,6 +182,7 @@ public class Game extends Observable{
     }
 
     private void notifyView(){
+        System.out.println("notifying view");
         super.setChanged();
         super.notifyObservers(this);
         super.clearChanged();

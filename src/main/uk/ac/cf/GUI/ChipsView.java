@@ -1,15 +1,21 @@
 package uk.ac.cf.GUI;
 
+import uk.ac.cf.blackjack.Game;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
 
-public class ChipsView extends JPanel {
+public class ChipsView extends JPanel implements Observer {
+    private Game model;
 
-    ChipsView(){
+    ChipsView(Game model){
+        this.model = model;
         JLabel chipsLabel = new JLabel("chips");
         super.add(chipsLabel);
         super.setBackground(Color.DARK_GRAY);
@@ -40,12 +46,26 @@ public class ChipsView extends JPanel {
             }
 
             // draw table texture
-            for (int i = 10; i > 0; i--) {
+            int numberOfChips = 0;
+            try{
+                numberOfChips = model.getPlayerByName("player").getChips().getCurrentBalance();
+                System.out.println("chips");
+                System.out.println(numberOfChips);
+            }catch(Exception exc){
+
+            }
+
+            for (int i = numberOfChips; i > 0; i--) {
                 g.drawImage(image, 20 + (int) Math.floor(Math.random() * 8), i * 11, 80, 40, null);
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        super.repaint();
     }
 }

@@ -139,10 +139,11 @@ public class Board{
     }
 
     void init(){
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+//        SwingUtilities.invokeLater(new Runnable() {
+//            public void run() {
+
                 createAndShowGui();
-            }
-        });
+//            }
+//        });
     }
 }

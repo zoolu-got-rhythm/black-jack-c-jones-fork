@@ -105,9 +105,6 @@ public class Controller {
                 e.printStackTrace();
             }
         }
-
-
-
     }
 
     // redudant

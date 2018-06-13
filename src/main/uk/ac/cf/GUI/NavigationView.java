@@ -7,16 +7,19 @@ import java.awt.*;
 import java.util.Observer;
 
 public class NavigationView extends JPanel implements Observer{
-    NavigationView(){
+
+    NavigationView(Controller controller){
         super.setBackground(Color.GREEN);
 
         FlowLayout fl2 = new FlowLayout(FlowLayout.CENTER);
         super.setLayout(fl2);
 
         JButton stay = new JButton("stay");
+        stay.addActionListener(controller);
         super.add(stay);
 
         JButton card = new JButton("card");
+        card.addActionListener(controller);
         super.add(card);
     }
 
