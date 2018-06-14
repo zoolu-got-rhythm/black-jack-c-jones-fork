@@ -65,9 +65,25 @@ public class CardView extends JPanel implements Observer {
                     Iterator iterator = null;
                     iterator = model.getPlayerByName(this.sideOfTable).getHand().getCards().iterator();
 
+                    int numberOfCards = model.getPlayerByName(this.sideOfTable).getHand().numberOfCards();
+
+
+                    int cardWidth, cardHeight = 0;
+
+                    if(numberOfCards > 4){
+                        cardWidth = width / 6;
+                    }else if(numberOfCards > 3){
+                        cardWidth = width / 5;
+                    }else{
+                        cardWidth = width / 4;
+                    }
+                    cardHeight = cardWidth + (cardWidth / 3);
+
                     int i = 0;
 
                     System.out.println(this.model);
+
+                    int cardMargin = 20;
 
                     while (iterator.hasNext()){
 //                      int i = model.getPlayerByName(this.sideOfTable).getHand().getCards().size();
@@ -82,13 +98,19 @@ public class CardView extends JPanel implements Observer {
                         final BufferedImage cardImage = ImageIO.read(
                                 new File(imgPath));
 
+
+                        if(i != 0) {
+                            cardMargin += cardWidth + 5;
+                        }
+
+
                         g.setColor(Color.GRAY);
-                        g.fillRoundRect(i * (width / 5) + 20 - 2, 30 + (i * 10) - 2, width / 4 - 10, (width / 4) + 20, 5, 5);
+                        g.fillRoundRect( cardMargin - 2, 30 - 2, cardWidth, cardHeight, 5, 5);
 
                         g.setColor(Color.WHITE);
-                        g.fillRoundRect(i * (width / 5) + 20, 30 + (i * 10), width / 4 - 10, (width / 4) + 20, 5, 5);
+                        g.fillRoundRect(cardMargin, 30, cardWidth, cardHeight, 5, 5);
 
-                        g.drawImage(cardImage, i * (width / 5) + 20, 30 + (i * 10), width / 4 - 10, (width / 4) + 20, null);
+                        g.drawImage(cardImage, cardMargin, 30, cardWidth, cardHeight, null);
                         i++;
                     }
 

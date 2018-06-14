@@ -55,8 +55,9 @@ public class ChipsView extends JPanel implements Observer {
 
             }
 
+            int offSet = (height - (numberOfChips * 11)) - 40;
             for (int i = numberOfChips; i > 0; i--) {
-                g.drawImage(image, 20 + (int) Math.floor(Math.random() * 8), i * 11, 80, 40, null);
+                g.drawImage(image, 20 + (int) Math.floor(Math.random() * 8), offSet + (i * 11), 80, 40, null);
             }
 
         } catch (IOException e) {

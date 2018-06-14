@@ -16,14 +16,16 @@ public class Board{
     private NavigationView blackjackNavigation;
     private ChipsView chipsView;
     private BettingView bettingView;
+    private TurnView turnView;
 
     Board(CardView computerCards, CardView playerCards, NavigationView navigationView, ChipsView chipsView,
-          BettingView bettingView){
+          BettingView bettingView, TurnView turnView){
         this.computerCards = computerCards;
         this.playerCards = playerCards;
         this.blackjackNavigation = navigationView;
         this.chipsView = chipsView;
         this.bettingView = bettingView;
+        this.turnView = turnView;
     }
 
     public void createAndShowGui() {
@@ -80,6 +82,14 @@ public class Board{
 
         cardsTable.add(computerCards);
 
+
+        // turn view component
+        turnView.setPreferredSize(new Dimension((frame.getWidth() / 4) * 3, 25));
+//        turnView.setBackground(Color.black);
+        cardsTable.add(turnView);
+
+
+
         // PLAYER CARDS VIEW COMPONENT
         playerCards.setPreferredSize(new Dimension((frame.getWidth() / 4) * 3, 200));
 //        playerCards.setBackground(Color.GREEN);
@@ -131,6 +141,8 @@ public class Board{
         container.add(chipsContainer);
 
         frame.pack();
+
+        frame.invalidate();
 
 
 

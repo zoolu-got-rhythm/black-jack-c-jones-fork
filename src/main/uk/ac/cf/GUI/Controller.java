@@ -4,14 +4,17 @@ import uk.ac.cf.blackjack.EnumToValueMapper;
 import uk.ac.cf.blackjack.Game;
 import uk.ac.cf.blackjack.NoPlayersInGameException;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Scanner;
 
 public class Controller implements ActionListener{
     private Game model;
-    Controller(Game model){
+    private CardView cardView;
+    Controller(Game model, CardView cardView){
         this.model = model;
+        this.cardView = cardView;
     }
 
     @Override
@@ -51,6 +54,18 @@ public class Controller implements ActionListener{
                 }
             default:
                 break;
+        }
+
+        if(model.isGameOver()){
+//            JOptionPane.showMessageDialog(this.cardView,
+//                        "You shouldn't use a message dialog "
+//                                + "(like this)\n"
+//                                + "for a question, OK?",
+//                        "Inane question",
+//                        JOptionPane.YES_NO_OPTION);
+            this.model.getWinner();
+            this.model.resetGame();
+            this.placeBet();
         }
     }
 

@@ -17,6 +17,10 @@ public class Player {
         this.chips = new Chips(balance);
     }
 
+    public void newHand(){
+        this.hand = new Hand();
+    }
+
 
     public Hand getHand(){
         return hand;

@@ -42,6 +42,25 @@ public class Game extends Observable{
         placedBets = new HashMap<>();
     }
 
+    public void resetGame(){
+        theDeck=new Deck();
+        currentPlayer = players.get(0);
+        placedBets = new HashMap<>();
+        for(Player p : this.players){
+            p.newHand();
+            if(playersInGame.indexOf(p) == -1){
+                playersInGame.add(p);
+            }
+
+            if(playersInDeal.indexOf(p) == -1){
+                playersInDeal.add(p);
+            }
+        }
+        isGameOver = false;
+
+        this.notifyView();
+    }
+
 
 
     public void placeChipsToEnterGame(Player player, int chipsAmount) throws Exception {
