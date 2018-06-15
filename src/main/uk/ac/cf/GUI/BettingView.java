@@ -14,6 +14,15 @@ public class BettingView extends JPanel{
         super.add(placeBetButton);
         placeBetButton.addActionListener(controller);
 
+        placeBetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               controller.setBetPlaced(Integer.valueOf(betInput.getText()));
+            }
+        });
+
+        placeBetButton.addActionListener(controller);
+
 //        placeBetButton.addActionListener(new ActionListener(){
 //            @Override
 //            public void actionPerformed(ActionEvent e) {

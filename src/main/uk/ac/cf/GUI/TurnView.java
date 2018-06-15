@@ -31,8 +31,9 @@ public class TurnView extends JPanel implements Observer {
         int width = super.getWidth();
         int height = super.getHeight();
 
-        final String playerTurn = "turn: " + model.getCurrentPlayer().getName().toUpperCase() +
-                ", best hand value: " + model.getCurrentPlayer().getHand().getBestValue();
+        final String playerTurn = "turn: " + model.getCurrentPlayer().getName().toUpperCase() + "\b" +
+                ", best hand value: " + model.getCurrentPlayer().getHand().getBestValue() + "\b" +
+                "winner: " + "to be done";
         g.setColor(Color.GREEN);
         g.drawString(playerTurn, 5, height / 2);
     }

@@ -12,9 +12,11 @@ import java.util.Scanner;
 public class Controller implements ActionListener{
     private Game model;
     private CardView cardView;
+    private int betPlaced;
     Controller(Game model, CardView cardView){
         this.model = model;
         this.cardView = cardView;
+        this.betPlaced = 0;
     }
 
     @Override
@@ -52,6 +54,12 @@ public class Controller implements ActionListener{
                     computerValue = EnumToValueMapper.getHandIntValueFromHandValueEnum(
                             model.getCurrentPlayer().getHand().getBestValue());
                 }
+                break;
+
+            case "bet" :
+                this.placeBet(this.getBetPlaced());
+                this.setBetPlaced(0);
+                break;
             default:
                 break;
         }
@@ -65,36 +73,51 @@ public class Controller implements ActionListener{
 //                        JOptionPane.YES_NO_OPTION);
             this.model.getWinner();
             this.model.resetGame();
-            this.placeBet();
+
+            // if player chips below 3
+            // prompt user to re-start the game
+//            this.placeBet();
         }
     }
 
-    public void placeBet(){
+    public void placeBet(int betAmount){
+        int playerChipsAmount = 0;
+        try{
+            playerChipsAmount = model.getPlayerByName("player").getChips().getCurrentBalance();
+        }catch(Exception e1){
 
-//            boolean enoughChips = false;
-//            while(enoughChips != true) {
-//                Scanner s = new Scanner(System.in);
-//                int userBuyInAmount = Integer.parseInt(s.next());
-//                try {
-//                    if (userBuyInAmount > model.getPlayerByName("player").getChips().getCurrentBalance()) {
-//                        System.out.println("you don't have that many chips");
-//                    }else{
-//                        enoughChips = true;
+        }
 
-                        try {
-                            model.placeChipsToEnterGame(model.getPlayerByName("player"), 3);
-                            model.placeChipsToEnterGame(model.getPlayerByName("house"), 3);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
 
-                        model.dealCards(2, true);
-                        // check for blackjack
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
+        if (playerChipsAmount >= 3) {
+            if(betAmount >= 3) {
+                try {
+                    model.placeChipsToEnterGame(model.getPlayerByName("player"), betAmount);
+                    model.placeChipsToEnterGame(model.getPlayerByName("house"), 3);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                model.dealCards(2, true);
+            }else{
+                // minimum buy in is 3
+            }
+            // check for blackjack
+        } else{
+//            JOptionPane.showMessageDialog(this.cardView,
+//            this.getBetPlaced(),
+//            "not enough chips",
+//            JOptionPane.YES_NO_OPTION);
+
+            // you don't have enough chips
+        }
+    }
+
+    public int getBetPlaced() {
+        return betPlaced;
+    }
+
+    public void setBetPlaced(int betPlaced) {
+        this.betPlaced = betPlaced;
     }
 
     // check if game is over

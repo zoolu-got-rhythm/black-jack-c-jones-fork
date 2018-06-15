@@ -62,7 +62,7 @@ public class Board{
         // CARDS TABLE CONTAINER
 
         JPanel cardsTable = new JPanel();
-        cardsTable.setBorder(BorderFactory.createLineBorder(Color.red));
+        cardsTable.setBorder(BorderFactory.createLineBorder(Color.GREEN));
 
 
         FlowLayout flForCardsTable = new FlowLayout(FlowLayout.LEFT);
@@ -106,7 +106,7 @@ public class Board{
 
         // CHIPS CONTAINER
         JPanel chipsContainer = new JPanel();
-        chipsContainer.setBorder(BorderFactory.createLineBorder(Color.red));
+        chipsContainer.setBorder(BorderFactory.createLineBorder(Color.GREEN));
 
         BoxLayout chipsLayout = new BoxLayout(chipsContainer, BoxLayout.Y_AXIS);
         chipsContainer.setLayout(chipsLayout);
@@ -114,8 +114,8 @@ public class Board{
         chipsContainer.setPreferredSize(new Dimension((frame.getWidth() / 4), frame.getHeight()));
 
 //        this.chipsView.setBackground(Color.BLACK);
-        this.chipsView.setPreferredSize(new Dimension(frame.getWidth() / 4, (frame.getHeight() / 4) * 3));
-//        this.chipsView.setMinimumSize(new Dimension(frame.getWidth() / 3, frame.getHeight() / 3));
+        this.chipsView.setPreferredSize(new Dimension(frame.getWidth() / 4, ((frame.getHeight() / 4) * 3) + (frame.getHeight() / 4) - 20));
+        this.chipsView.setMinimumSize(new Dimension(frame.getWidth() / 3, frame.getHeight() / 3));
         this.chipsView.setMaximumSize(new Dimension(frame.getWidth() / 4, frame.getHeight() / 3));
         this.chipsView.setAlignmentX(Component.LEFT_ALIGNMENT);
         chipsContainer.add(this.chipsView);
@@ -124,8 +124,8 @@ public class Board{
 
         this.bettingView.setBackground(Color.BLACK);
 
-//        chipsStack.setPreferredSize(new Dimension(frame.getWidth() / 3, frame.getHeight() / 2));
-//        chipsStack.setMaximumSize(new Dimension(frame.getWidth() / 4, frame.getHeight() / 2));
+//        bettingView.setPreferredSize(new Dimension(frame.getWidth() / 3, frame.getHeight() / 6));
+//        bettingView.setMaximumSize(new Dimension(frame.getWidth() / 4, frame.getHeight() / 6));
 
         this.bettingView.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -142,7 +142,9 @@ public class Board{
 
         frame.pack();
 
-        frame.invalidate();
+
+        frame.invalidate(); // can look through each and repaint to make sure everything renders on first init,
+        // this doesn't seem to work consistenly
 
 
 
@@ -151,11 +153,10 @@ public class Board{
     }
 
     void init(){
-//        SwingUtilities.invokeLater(new Runnable() {
-//            public void run() {
-
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
                 createAndShowGui();
-//            }
-//        });
+            }
+        });
     }
 }

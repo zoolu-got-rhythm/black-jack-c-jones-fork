@@ -11,7 +11,7 @@ public class App {
 
         // model
         Player playerA = new Player("player", score);
-        Player playerB = new Player("house", 10);
+        Player playerB = new Player("house", 10000);
         Game model = new Game(playerA, playerB);
 
         // views
@@ -42,6 +42,6 @@ public class App {
         // create view
         board.init();
 
-        controller.placeBet();
+//        controller.placeBet();
     }
 }

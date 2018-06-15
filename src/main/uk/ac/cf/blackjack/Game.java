@@ -42,7 +42,7 @@ public class Game extends Observable{
         placedBets = new HashMap<>();
     }
 
-    public void resetGame(){
+    public void resetGame(){ // re-name to new game with player chips in tact
         theDeck=new Deck();
         currentPlayer = players.get(0);
         placedBets = new HashMap<>();
