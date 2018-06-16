@@ -23,6 +23,12 @@ public class Controller implements ActionListener{
     public void actionPerformed(ActionEvent event) {
         System.out.println(event.getActionCommand());
         switch(event.getActionCommand().toLowerCase()){
+            case "bet" :
+//                if(model.getPlacedBets().isEmpty())
+//                System.out.println("bet placed");
+//                this.placeBet(this.getBetPlaced());
+//                this.setBetPlaced(0);
+                break;
             case "card" :
                 // draw new card in model
                 System.out.println("execute");
@@ -56,10 +62,7 @@ public class Controller implements ActionListener{
                 }
                 break;
 
-            case "bet" :
-                this.placeBet(this.getBetPlaced());
-                this.setBetPlaced(0);
-                break;
+
             default:
                 break;
         }
@@ -89,15 +92,19 @@ public class Controller implements ActionListener{
         }
 
 
-        if (playerChipsAmount >= 3) {
+        if (playerChipsAmount >= 3 && betAmount <= playerChipsAmount) {
             if(betAmount >= 3) {
-                try {
-                    model.placeChipsToEnterGame(model.getPlayerByName("player"), betAmount);
-                    model.placeChipsToEnterGame(model.getPlayerByName("house"), 3);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if(model.getPlacedBets().isEmpty()) {
+                    try {
+                        model.placeChipsToEnterGame(model.getPlayerByName("player"), betAmount);
+                        model.placeChipsToEnterGame(model.getPlayerByName("house"), 3);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    model.dealCards(2, true);
+                }else{
+                    // current game in play
                 }
-                model.dealCards(2, true);
             }else{
                 // minimum buy in is 3
             }
@@ -110,6 +117,12 @@ public class Controller implements ActionListener{
 
             // you don't have enough chips
         }
+    }
+
+    public void bet(){
+        System.out.println("bet placed");
+        this.placeBet(this.getBetPlaced());
+        this.setBetPlaced(0);
     }
 
     public int getBetPlaced() {

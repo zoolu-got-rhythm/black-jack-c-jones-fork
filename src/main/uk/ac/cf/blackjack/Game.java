@@ -118,21 +118,25 @@ public class Game extends Observable{
     }
 
     public void stick(Player aPlayer){
-        playersInDeal.remove(aPlayer);
-        aPlayer.stick();
+        if(!this.getPlacedBets().isEmpty()) {
+            playersInDeal.remove(aPlayer);
+            aPlayer.stick();
+        }
     }
 
 
     public void twist(Player aPlayer){
-        PlayingCard nextCard = theDeck.deal();
-        aPlayer.getHand().addCard(nextCard);
-        if (aPlayer.getHand().getBestValue()==HandValue.BUST){
-            playersInGame.remove(aPlayer);
-            playersInDeal.remove(aPlayer);
-            int chipsValue = placedBets.get(aPlayer);
-            aPlayer.getChips().removeChips(chipsValue);
+        if(!this.getPlacedBets().isEmpty()) {
+            PlayingCard nextCard = theDeck.deal();
+            aPlayer.getHand().addCard(nextCard);
+            if (aPlayer.getHand().getBestValue() == HandValue.BUST) {
+                playersInGame.remove(aPlayer);
+                playersInDeal.remove(aPlayer);
+                int chipsValue = placedBets.get(aPlayer);
+                aPlayer.getChips().removeChips(chipsValue);
+            }
+            this.notifyView();
         }
-        this.notifyView();
     }
 
     public boolean isGameOver(){

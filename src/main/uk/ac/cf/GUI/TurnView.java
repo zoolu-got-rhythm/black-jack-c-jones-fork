@@ -1,6 +1,7 @@
 package uk.ac.cf.GUI;
 
 import uk.ac.cf.blackjack.Game;
+import uk.ac.cf.blackjack.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,9 +10,11 @@ import java.util.Observer;
 public class TurnView extends JPanel implements Observer {
 
     private Game model;
+    private String playerName;
 
-    TurnView(Game model){
+    TurnView(Game model, String playerName){
         this.model = model;
+        this.playerName = playerName;
         super.setBackground(Color.BLACK);
 
         FlowLayout fl2 = new FlowLayout(FlowLayout.CENTER);
@@ -31,11 +34,17 @@ public class TurnView extends JPanel implements Observer {
         int width = super.getWidth();
         int height = super.getHeight();
 
-        final String playerTurn = "turn: " + model.getCurrentPlayer().getName().toUpperCase() + "\b" +
-                ", best hand value: " + model.getCurrentPlayer().getHand().getBestValue() + "\b" +
-                "winner: " + "to be done";
+        Player playerSide = null;
+        try{
+            playerSide = model.getPlayerByName(playerName);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        final String playerTurn = playerSide.getName().toUpperCase() +
+                ", best hand value: " + playerSide.getHand().getBestValue();
         g.setColor(Color.GREEN);
-        g.drawString(playerTurn, 5, height / 2);
+        g.drawString(playerTurn, 5, (height / 2) + 4);
     }
 
     @Override

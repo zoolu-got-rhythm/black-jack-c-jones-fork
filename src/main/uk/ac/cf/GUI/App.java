@@ -18,24 +18,29 @@ public class App {
         CardView playerCards = new CardView(model, "player");
         CardView houseCards = new CardView(model, "house"); // computer
 
+        TurnView houseTurnView = new TurnView(model, "house");
+        TurnView playerTurnView = new TurnView(model, "player");
+
         // controler
         Controller controller = new Controller(model, houseCards);
 
         // views
-        NavigationView navView = new NavigationView(controller);
+        NavigationView navView = new NavigationView(controller, model);
         ChipsView chipsView = new ChipsView(model);
-        BettingView bettingView = new BettingView(controller);
-        TurnView turnView = new TurnView(model);
+        BettingView bettingView = new BettingView(model, controller);
+
 
         // view
-        Board board = new Board(houseCards, playerCards, navView, chipsView, bettingView, turnView);
+        Board board = new Board(houseCards, playerCards, navView, chipsView, bettingView, playerTurnView, houseTurnView);
 
         // add observer
-
         model.addObserver(playerCards);
         model.addObserver(houseCards);
         model.addObserver(chipsView);
-        model.addObserver(turnView);
+        model.addObserver(playerTurnView);
+        model.addObserver(houseTurnView);
+        model.addObserver(navView);
+        model.addObserver(bettingView);
         // add chips view
 //        board.createAndShowGui();
 

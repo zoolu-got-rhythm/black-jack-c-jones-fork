@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Observer;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -16,16 +17,18 @@ public class Board{
     private NavigationView blackjackNavigation;
     private ChipsView chipsView;
     private BettingView bettingView;
-    private TurnView turnView;
+    private TurnView playerTurnView;
+    private TurnView houseTurnView;
 
     Board(CardView computerCards, CardView playerCards, NavigationView navigationView, ChipsView chipsView,
-          BettingView bettingView, TurnView turnView){
+          BettingView bettingView, TurnView playerTurnView, TurnView houseTurnView){
         this.computerCards = computerCards;
         this.playerCards = playerCards;
         this.blackjackNavigation = navigationView;
         this.chipsView = chipsView;
         this.bettingView = bettingView;
-        this.turnView = turnView;
+        this.playerTurnView = playerTurnView;
+        this.houseTurnView = houseTurnView;
     }
 
     public void createAndShowGui() {
@@ -38,6 +41,28 @@ public class Board{
         frame.pack();
         frame.setVisible(true);
         frame.setSize(500, 500);
+
+        // set app logo img
+//        URL logoImgPath = new URL();
+//        String logoImgPath = "/Users/slime/Documents/blackJackCarlJonesFork/src/main/uk/ac/cf/GUI/png/blackJackLogo.png";
+//        try{
+//            final BufferedImage logoImage = ImageIO.read(
+//                    new File(logoImgPath));
+//            frame.setIconImage(logoImage);
+//        }catch(Exception imgLoadE){
+//
+//        }
+
+//        URL url = ClassLoader.getSystemResource("/src/main/uk/ac/cf/GUI/png/blackJackLogo");
+//        Toolkit kit = Toolkit.getDefaultToolkit();
+//        Image img = kit.createImage(url);
+//        frame.setIconImage(img);
+
+//        Toolkit.getDefaultToolkit().getImage("/png/blackJackLogo.png");
+//        frame.("/png/blackJackLogo.png");
+//        frame.setIconImage();
+
+
 
 
         JPanel container = new JPanel(){
@@ -76,6 +101,11 @@ public class Board{
 //        cardsTable.setBorder(new EmptyBorder(0, 0, 0, 0));
 
 
+        // turn view component
+        houseTurnView.setPreferredSize(new Dimension((frame.getWidth() / 4) * 3, 25));
+//        houseTurnView.setBackground(Color.black);
+        cardsTable.add(houseTurnView);
+
         // COMPUTER CARDS VIEW COMPONENT
         computerCards.setPreferredSize(new Dimension((frame.getWidth() / 4) * 3, 200));
 //        computerCards.setBackground(Color.BLUE);
@@ -83,10 +113,10 @@ public class Board{
         cardsTable.add(computerCards);
 
 
-        // turn view component
-        turnView.setPreferredSize(new Dimension((frame.getWidth() / 4) * 3, 25));
-//        turnView.setBackground(Color.black);
-        cardsTable.add(turnView);
+        // player turn view component
+        playerTurnView.setPreferredSize(new Dimension((frame.getWidth() / 4) * 3, 25));
+//        playerTurnView.setBackground(Color.black);
+        cardsTable.add(playerTurnView);
 
 
 
@@ -140,7 +170,12 @@ public class Board{
 
         container.add(chipsContainer);
 
+
+//        frame.setIconImage(Toolkit.getDefaultToolkit().getImage(
+//                "/Users/slime/Documents/blackJackCarlJonesFork/src/main/uk/ac/cf/GUI/png/2_of_clubs.png"));
         frame.pack();
+
+
 
 
         frame.invalidate(); // can look through each and repaint to make sure everything renders on first init,

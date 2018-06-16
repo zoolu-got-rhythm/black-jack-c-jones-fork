@@ -1,6 +1,7 @@
 package uk.ac.cf.GUI;
 
 import javafx.beans.Observable;
+import uk.ac.cf.blackjack.Game;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,19 +9,24 @@ import java.util.Observer;
 
 public class NavigationView extends JPanel implements Observer{
 
-    NavigationView(Controller controller){
+    private JButton stay;
+    private JButton card;
+    private Game model;
+
+    NavigationView(Controller controller, Game model){
         super.setBackground(Color.GREEN);
 
+        this.model = model;
         FlowLayout fl2 = new FlowLayout(FlowLayout.CENTER);
         super.setLayout(fl2);
 
-        JButton stay = new JButton("stay");
-        stay.addActionListener(controller);
-        super.add(stay);
+        this.stay = new JButton("stay");
+        this.stay.addActionListener(controller);
+        super.add(this.stay);
 
-        JButton card = new JButton("card");
-        card.addActionListener(controller);
-        super.add(card);
+        this.card = new JButton("card");
+        this.card.addActionListener(controller);
+        super.add(this.card);
     }
 
     @Override
@@ -45,5 +51,23 @@ public class NavigationView extends JPanel implements Observer{
     @Override
     public void update(java.util.Observable o, Object arg) {
 
+
+        System.out.println("hav view");
+        System.out.println(model);
+
+        if(this.model.getCurrentPlayer().getName().equals("player")){
+            System.out.println("turn button green");
+//            this.stay.setBackground(Color.GREEN); java 8 doesn't work bg color on mac
+//            this.card.setBackground(Color.GREEN);
+            this.stay.setForeground(Color.GREEN);
+            this.card.setForeground(Color.GREEN);
+        }else{
+            this.stay.setForeground(Color.RED);
+            this.card.setForeground(Color.RED);
+        }
+        super.invalidate();
+        super.repaint();
+
     }
+
 }
