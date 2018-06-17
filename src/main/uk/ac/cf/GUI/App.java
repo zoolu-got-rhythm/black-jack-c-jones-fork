@@ -29,9 +29,12 @@ public class App {
         ChipsView chipsView = new ChipsView(model);
         BettingView bettingView = new BettingView(model, controller);
 
+        // title screen view
+        TitleScreen titleScreen = new TitleScreen();
+
 
         // view
-        Board board = new Board(houseCards, playerCards, navView, chipsView, bettingView, playerTurnView, houseTurnView);
+        Board board = new Board(houseCards, playerCards, navView, chipsView, bettingView, playerTurnView, houseTurnView, titleScreen);
 
         // add observer
         model.addObserver(playerCards);

@@ -13,9 +13,11 @@ import java.util.Observer;
 
 public class ChipsView extends JPanel implements Observer {
     private Game model;
+//    private Controller controller;
 
     ChipsView(Game model){
         this.model = model;
+//        this.controller = controller;
         JLabel chipsLabel = new JLabel("chips");
         super.add(chipsLabel);
         super.setBackground(Color.DARK_GRAY);
@@ -49,6 +51,8 @@ public class ChipsView extends JPanel implements Observer {
             int numberOfChips = 0;
             try{
                 numberOfChips = model.getPlayerByName("player").getChips().getCurrentBalance();
+                numberOfChips = numberOfChips - model.getPlacedBets().get(model.getPlayerByName("player"));
+//                numberOfChips = numberOfChips
                 System.out.println("chips");
                 System.out.println(numberOfChips);
             }catch(Exception exc){

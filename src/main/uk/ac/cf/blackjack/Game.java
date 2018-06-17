@@ -67,6 +67,7 @@ public class Game extends Observable{
         if(chipsAmount < 3)
             throw new Exception("minimum buy in is 3 chips to play"); // make custom exception instead
         placedBets.put(player, chipsAmount);
+//        this.notifyView();
     }
 
     public void dealCards(int numberOfCardsInInitialShuffle, boolean shuffleFirst){

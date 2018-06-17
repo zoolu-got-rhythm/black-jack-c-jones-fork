@@ -19,9 +19,10 @@ public class Board{
     private BettingView bettingView;
     private TurnView playerTurnView;
     private TurnView houseTurnView;
+    private TitleScreen titleScreen;
 
     Board(CardView computerCards, CardView playerCards, NavigationView navigationView, ChipsView chipsView,
-          BettingView bettingView, TurnView playerTurnView, TurnView houseTurnView){
+          BettingView bettingView, TurnView playerTurnView, TurnView houseTurnView, TitleScreen titleScreen){
         this.computerCards = computerCards;
         this.playerCards = playerCards;
         this.blackjackNavigation = navigationView;
@@ -29,6 +30,7 @@ public class Board{
         this.bettingView = bettingView;
         this.playerTurnView = playerTurnView;
         this.houseTurnView = houseTurnView;
+        this.titleScreen = titleScreen;
     }
 
     public void createAndShowGui() {
@@ -100,6 +102,8 @@ public class Board{
         cardsTable.setPreferredSize(new Dimension((frame.getWidth() / 4) * 3, frame.getHeight()));
 //        cardsTable.setBorder(new EmptyBorder(0, 0, 0, 0));
 
+        titleScreen.setPreferredSize(new Dimension((frame.getWidth() / 4) * 3, 25));
+        cardsTable.add(titleScreen);
 
         // turn view component
         houseTurnView.setPreferredSize(new Dimension((frame.getWidth() / 4) * 3, 25));
@@ -107,7 +111,8 @@ public class Board{
         cardsTable.add(houseTurnView);
 
         // COMPUTER CARDS VIEW COMPONENT
-        computerCards.setPreferredSize(new Dimension((frame.getWidth() / 4) * 3, 200));
+        computerCards.setPreferredSize(new Dimension(((frame.getWidth() / 4) * 3), 190));
+//        computerCards.setMaximumSize(new Dimension(((frame.getWidth() / 4) * 3), 180));
 //        computerCards.setBackground(Color.BLUE);
 
         cardsTable.add(computerCards);
@@ -121,7 +126,7 @@ public class Board{
 
 
         // PLAYER CARDS VIEW COMPONENT
-        playerCards.setPreferredSize(new Dimension((frame.getWidth() / 4) * 3, 200));
+        playerCards.setPreferredSize(new Dimension((frame.getWidth() / 4) * 3, 190));
 //        playerCards.setBackground(Color.GREEN);
 
         cardsTable.add(playerCards);
