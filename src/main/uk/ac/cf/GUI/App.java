@@ -28,13 +28,15 @@ public class App {
         NavigationView navView = new NavigationView(controller, model);
         ChipsView chipsView = new ChipsView(model);
         BettingView bettingView = new BettingView(model, controller);
+        ChipsCountView chipsCountView = new ChipsCountView(model);
 
         // title screen view
         TitleScreen titleScreen = new TitleScreen();
 
 
         // view
-        Board board = new Board(houseCards, playerCards, navView, chipsView, bettingView, playerTurnView, houseTurnView, titleScreen);
+        Board board = new Board(houseCards, playerCards, navView, chipsView, bettingView, playerTurnView, houseTurnView, titleScreen,
+                chipsCountView);
 
         // add observer
         model.addObserver(playerCards);
@@ -44,6 +46,7 @@ public class App {
         model.addObserver(houseTurnView);
         model.addObserver(navView);
         model.addObserver(bettingView);
+        model.addObserver(chipsCountView);
         // add chips view
 //        board.createAndShowGui();
 

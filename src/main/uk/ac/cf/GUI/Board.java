@@ -20,9 +20,11 @@ public class Board{
     private TurnView playerTurnView;
     private TurnView houseTurnView;
     private TitleScreen titleScreen;
+    private ChipsCountView chipsCountView;
 
     Board(CardView computerCards, CardView playerCards, NavigationView navigationView, ChipsView chipsView,
-          BettingView bettingView, TurnView playerTurnView, TurnView houseTurnView, TitleScreen titleScreen){
+          BettingView bettingView, TurnView playerTurnView, TurnView houseTurnView, TitleScreen titleScreen,
+          ChipsCountView chipsCountView){
         this.computerCards = computerCards;
         this.playerCards = playerCards;
         this.blackjackNavigation = navigationView;
@@ -31,6 +33,7 @@ public class Board{
         this.playerTurnView = playerTurnView;
         this.houseTurnView = houseTurnView;
         this.titleScreen = titleScreen;
+        this.chipsCountView = chipsCountView;
     }
 
     public void createAndShowGui() {
@@ -143,10 +146,16 @@ public class Board{
         JPanel chipsContainer = new JPanel();
         chipsContainer.setBorder(BorderFactory.createLineBorder(Color.GREEN));
 
+
         BoxLayout chipsLayout = new BoxLayout(chipsContainer, BoxLayout.Y_AXIS);
         chipsContainer.setLayout(chipsLayout);
 
         chipsContainer.setPreferredSize(new Dimension((frame.getWidth() / 4), frame.getHeight()));
+
+        this.chipsCountView.setPreferredSize(new Dimension(frame.getWidth() / 4, chipsCountView.getPreferredSize().height));
+        this.chipsCountView.setAlignmentX(Component.LEFT_ALIGNMENT);
+        this.chipsCountView.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+        chipsContainer.add(this.chipsCountView);
 
 //        this.chipsView.setBackground(Color.BLACK);
         this.chipsView.setPreferredSize(new Dimension(frame.getWidth() / 4, ((frame.getHeight() / 4) * 3) + (frame.getHeight() / 4) - 20));
