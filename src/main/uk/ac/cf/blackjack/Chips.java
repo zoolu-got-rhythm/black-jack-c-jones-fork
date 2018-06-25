@@ -22,4 +22,8 @@ public class Chips {
     public int getCurrentBalance() {
         return currentBalance;
     }
+
+    public void setCurrentBalance(int currentBalance) {
+        this.currentBalance = currentBalance;
+    }
 }

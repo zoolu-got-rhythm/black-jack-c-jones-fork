@@ -19,6 +19,7 @@ public class Game extends Observable{
     private boolean isGameOver;
     private Deck theDeck;
     private HashMap<Player, Integer> placedBets;
+    private final int chipsNeededToWin = 30;
 
 
 
@@ -42,7 +43,7 @@ public class Game extends Observable{
         placedBets = new HashMap<>();
     }
 
-    public void resetGame(){ // re-name to new game with player chips in tact
+    public void resetGame(Boolean resetChips, int chipsValue){ // re-name to new game with player chips in tact
         theDeck=new Deck();
         currentPlayer = players.get(0);
         placedBets = new HashMap<>();
@@ -56,6 +57,16 @@ public class Game extends Observable{
                 playersInDeal.add(p);
             }
         }
+        Player player;
+
+        if(resetChips)
+            try{
+                player = this.getPlayerByName("player");
+                player.getChips().setCurrentBalance(chipsValue);
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+            }
+
         isGameOver = false;
 
         this.notifyView();
@@ -228,5 +239,9 @@ public class Game extends Observable{
 
     public HashMap<Player, Integer> getPlacedBets() {
         return placedBets;
+    }
+
+    public int getChipsNeededToWin() {
+        return chipsNeededToWin;
     }
 }

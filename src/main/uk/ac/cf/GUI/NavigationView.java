@@ -5,6 +5,8 @@ import uk.ac.cf.blackjack.Game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observer;
 
 public class NavigationView extends JPanel implements Observer{
@@ -21,11 +23,21 @@ public class NavigationView extends JPanel implements Observer{
         super.setLayout(fl2);
 
         this.stay = new JButton("stay");
-        this.stay.addActionListener(controller);
+        this.stay.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.stay();
+            }
+        });
         super.add(this.stay);
 
         this.card = new JButton("card");
-        this.card.addActionListener(controller);
+        this.card.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.playerDrawCard();
+            }
+        });
         super.add(this.card);
     }
 

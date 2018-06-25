@@ -31,7 +31,7 @@ public class App {
         ChipsCountView chipsCountView = new ChipsCountView(model);
 
         // title screen view
-        TitleScreen titleScreen = new TitleScreen();
+        TitleScreen titleScreen = new TitleScreen(model);
 
 
         // view
@@ -47,6 +47,7 @@ public class App {
         model.addObserver(navView);
         model.addObserver(bettingView);
         model.addObserver(chipsCountView);
+        model.addObserver(titleScreen);
         // add chips view
 //        board.createAndShowGui();
 

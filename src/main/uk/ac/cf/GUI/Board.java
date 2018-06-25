@@ -158,6 +158,8 @@ public class Board{
         chipsContainer.add(this.chipsCountView);
 
 //        this.chipsView.setBackground(Color.BLACK);
+        this.chipsView.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+
         this.chipsView.setPreferredSize(new Dimension(frame.getWidth() / 4, ((frame.getHeight() / 4) * 3) + (frame.getHeight() / 4) - 20));
         this.chipsView.setMinimumSize(new Dimension(frame.getWidth() / 3, frame.getHeight() / 3));
         this.chipsView.setMaximumSize(new Dimension(frame.getWidth() / 4, frame.getHeight() / 3));

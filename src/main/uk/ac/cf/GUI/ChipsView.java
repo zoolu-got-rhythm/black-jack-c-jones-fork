@@ -20,7 +20,7 @@ public class ChipsView extends JPanel implements Observer {
 //        this.controller = controller;
         JLabel chipsLabel = new JLabel("chips");
         super.add(chipsLabel);
-        super.setBackground(Color.DARK_GRAY);
+//        super.setBackground(Color.LIGHT_GRAY);
     }
 
     @Override
@@ -28,24 +28,26 @@ public class ChipsView extends JPanel implements Observer {
         int width = super.getWidth();
         int height = super.getHeight();
 
-        g.setColor(Color.BLACK);
+        g.setColor(Color.GRAY);
         g.fillRect(0, 0, width, height);
 
         try {
             final BufferedImage image = ImageIO.read(new File("/Users/slime/Documents/blackJackCarlJonesFork/src/main/uk/ac/cf/GUI/gold-coin-hi.png"));
 
-            for(int j = 0; j * (width / 25) < width; j++){
-                for(int k = 0; k * (height / 45) < height; k++){
+            for(int j = 0; j < 16; j++){
+                for(int k = 0; k < 3; k++){
                     Color c;
                     if(j % 2 == 0){
-                        c = k % 2 == 0 ? new Color(20, 25, 102) : new Color(40, 80, 102);
+                        c = k % 2 == 0 ? Color.BLACK : Color.WHITE;
                     }else{
-                        c = k % 2 == 0 ? new Color(40, 80, 102) : new Color(20, 25, 102);
+                        c = k % 2 == 0 ? Color.WHITE : Color.BLACK;
                     }
                     g.setColor(c);
-                    g.fillRect(j * (width / 25), k * (height / 45), width / 25, height / 45);
+                    g.fillRect(j * (width / 16), k * (width / 16), width / 16, width / 16);
                 }
             }
+
+
 
             // draw table texture
             int numberOfChips = 0;

@@ -1,5 +1,7 @@
 package uk.ac.cf.GUI;
 
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 import uk.ac.cf.blackjack.Game;
 import uk.ac.cf.playingcards.PlayingCard;
 
@@ -8,7 +10,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
@@ -17,6 +21,7 @@ public class CardView extends JPanel implements Observer {
 
     private Game model;
     private String sideOfTable;
+    private int prevPlayerCardCount = 2;
 
     CardView(Game model, String sideOfTable){
         this.sideOfTable = sideOfTable;
@@ -127,6 +132,44 @@ public class CardView extends JPanel implements Observer {
     @Override
     public void update(Observable o, Object arg) {
 //        this.model = (Game) o;
+
+        if(this.model.isGameOver())
+            this.prevPlayerCardCount = 2;
+
+        try {
+            //            AudioClip dealCards = java.applet.Applet.newAudioClip(
+            //                    new java.net.URL("/Users/slime/Documents/blackJackCarlJonesFork/src/main/uk/ac/cf/GUI/sounds/cardPlace1.wav"));
+            //            dealCards.play();
+            // open the sound file as a Java input stream
+//            int n[] = {1,2,3};
+
+            String cardSound1File;
+            if (this.model.getCurrentPlayer().getHand().getCards().size() !=
+                    this.prevPlayerCardCount && this.model.getCurrentPlayer().getHand().getCards().size() != 0 &&
+                    this.model.getCurrentPlayer().getHand().getCards().size() != 1 &&
+                    this.model.getCurrentPlayer().getHand().getCards().size() != 2) {
+                cardSound1File = "/Users/slime/Documents/blackJackCarlJonesFork/src/main/uk/ac/cf/GUI/sounds/cardPlace1.wav";
+            } else {
+                cardSound1File = "/Users/slime/Documents/blackJackCarlJonesFork/src/main/uk/ac/cf/GUI/sounds/cardFan1.wav";
+            }
+
+            InputStream in = new FileInputStream(cardSound1File);
+
+            // create an audiostream from the inputstream
+            AudioStream audioStream = new AudioStream(in);
+
+            // play the audio clip with the audioplayer class
+            if(this.model.getCurrentPlayer().getHand().getCards().size() != 0)
+                AudioPlayer.player.start(audioStream);
+
+        } catch (Exception e2) {
+            System.out.println(e2.getMessage());
+        }
+
+
+        this.prevPlayerCardCount = this.model.getCurrentPlayer().getHand().getCards().size();
+
         super.repaint();
+
     }
 }
