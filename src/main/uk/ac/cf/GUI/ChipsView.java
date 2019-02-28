@@ -32,7 +32,7 @@ public class ChipsView extends JPanel implements Observer {
         g.fillRect(0, 0, width, height);
 
         try {
-            final BufferedImage image = ImageIO.read(new File("/Users/slime/Documents/blackJackCarlJonesFork/src/main/uk/ac/cf/GUI/gold-coin-hi.png"));
+            final BufferedImage image = ImageIO.read(new File("/Users/slurp/Documents/black-jack-c-jones-fork/src/main/uk/ac/cf/GUI/gold-coin-hi.png"));
 
             for(int j = 0; j < 16; j++){
                 for(int k = 0; k < 3; k++){

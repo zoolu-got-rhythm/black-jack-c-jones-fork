@@ -97,7 +97,7 @@ public class CardView extends JPanel implements Observer {
                         System.out.println(currentCard);
                                 String cardName =
                                         EnumToCardPath.imgPathFromRankAndSuitEnums(currentCard.rank, currentCard.suit);
-                        String imgPath = "/Users/slime/Documents/blackJackCarlJonesFork/src/main/uk/ac/cf/GUI/png/";
+                        String imgPath = "/Users/slurp/Documents/black-jack-c-jones-fork/src/main/uk/ac/cf/GUI/png/";
                         imgPath += cardName;
 
                         final BufferedImage cardImage = ImageIO.read(
@@ -138,7 +138,7 @@ public class CardView extends JPanel implements Observer {
 
         try {
             //            AudioClip dealCards = java.applet.Applet.newAudioClip(
-            //                    new java.net.URL("/Users/slime/Documents/blackJackCarlJonesFork/src/main/uk/ac/cf/GUI/sounds/cardPlace1.wav"));
+            //                    new java.net.URL("/Users/slurp/Documents/black-jack-c-jones-fork/src/main/uk/ac/cf/GUI/sounds/cardPlace1.wav"));
             //            dealCards.play();
             // open the sound file as a Java input stream
 //            int n[] = {1,2,3};
@@ -148,9 +148,9 @@ public class CardView extends JPanel implements Observer {
                     this.prevPlayerCardCount && this.model.getCurrentPlayer().getHand().getCards().size() != 0 &&
                     this.model.getCurrentPlayer().getHand().getCards().size() != 1 &&
                     this.model.getCurrentPlayer().getHand().getCards().size() != 2) {
-                cardSound1File = "/Users/slime/Documents/blackJackCarlJonesFork/src/main/uk/ac/cf/GUI/sounds/cardPlace1.wav";
+                cardSound1File = "/Users/slurp/Documents/black-jack-c-jones-fork/src/main/uk/ac/cf/GUI/sounds/cardPlace1.wav";
             } else {
-                cardSound1File = "/Users/slime/Documents/blackJackCarlJonesFork/src/main/uk/ac/cf/GUI/sounds/cardFan1.wav";
+                cardSound1File = "/Users/slurp/Documents/black-jack-c-jones-fork/src/main/uk/ac/cf/GUI/sounds/cardFan1.wav";
             }
 
             InputStream in = new FileInputStream(cardSound1File);

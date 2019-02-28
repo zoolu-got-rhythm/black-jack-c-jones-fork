@@ -49,7 +49,7 @@ public class Board{
 
         // set app logo img
 //        URL logoImgPath = new URL();
-//        String logoImgPath = "/Users/slime/Documents/blackJackCarlJonesFork/src/main/uk/ac/cf/GUI/png/blackJackLogo.png";
+//        String logoImgPath = "/Documents/blackJackCarlJonesFork/src/main/uk/ac/cf/GUI/png/blackJackLogo.png";
 //        try{
 //            final BufferedImage logoImage = ImageIO.read(
 //                    new File(logoImgPath));
@@ -188,7 +188,7 @@ public class Board{
 
 
 //        frame.setIconImage(Toolkit.getDefaultToolkit().getImage(
-//                "/Users/slime/Documents/blackJackCarlJonesFork/src/main/uk/ac/cf/GUI/png/2_of_clubs.png"));
+//                "/Documents/blackJackCarlJonesFork/src/main/uk/ac/cf/GUI/png/2_of_clubs.png"));
         frame.pack();
 
 
